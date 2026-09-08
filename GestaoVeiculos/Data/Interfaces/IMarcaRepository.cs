@@ -9,7 +9,8 @@ namespace GestaoVeiculos.Data.Interfaces
     {
         void Cadastrar(Marca marca);
         void Alterar(Marca marca);
-        void Excluir(Marca marca);
+        void Excluir(int marcaId);
         IEnumerable<Marca> ListarTodos();
+        bool NomeIgualAtual(Marca marca);
     }
 }

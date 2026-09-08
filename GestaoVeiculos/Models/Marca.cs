@@ -9,5 +9,18 @@ public partial class Marca
 
     public string Nome { get; set; } = null!;
 
-    public virtual ICollection<Veiculo> Veiculos { get; set; } = new List<Veiculo>();
+    public Marca(int id, string nome)
+    {
+        Id = id;
+        Nome = nome;
+    }
+
+    public Marca(string nome)
+    {
+        Nome = nome;
+    }
+
+    public Marca()
+    {
+    }
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using System;
 using System.Collections.Generic;
 
 namespace GestaoVeiculos.Models;
@@ -13,3 +14,4 @@ public partial class LogTransacao
 
     public int? VeiculoId { get; set; }
 }
+
