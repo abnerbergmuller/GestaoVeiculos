@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace GestaoVeiculos.Models;
 
-public partial class Veiculo
+public abstract partial class Veiculo
 {
     public int Id { get; set; }
 
@@ -13,9 +13,29 @@ public partial class Veiculo
 
     public int? Ano { get; set; }
 
-    public string TipoVeiculo { get; set; } = null!;
-
     public int MarcaId { get; set; }
 
     public virtual Marca Marca { get; set; } = null!;
+
+    protected Veiculo(int id, string placa, string modelo, int? ano, int marcaId, Marca marca)
+    {
+        Id = id;
+        Placa = placa;
+        Modelo = modelo;
+        Ano = ano;
+        MarcaId = marcaId;
+        Marca = marca;
+    }
+
+    protected Veiculo(string placa, string modelo, int? ano, int marcaId)
+    {
+        Placa = placa;
+        Modelo = modelo;
+        Ano = ano;
+        MarcaId = marcaId;
+    }
+
+    protected Veiculo()
+    {
+    }
 }
