@@ -78,9 +78,6 @@ public partial class AppDbContext : DbContext
             entity.Property(e => e.Placa)
                 .HasMaxLength(7)
                 .HasColumnName("placa");
-            entity.Property(e => e.TipoVeiculo)
-                .HasMaxLength(50)
-                .HasColumnName("tipo_veiculo");
 
             entity.HasOne(d => d.Marca).WithMany()
                 .HasForeignKey(d => d.MarcaId)
@@ -90,6 +87,10 @@ public partial class AppDbContext : DbContext
 
 
         OnModelCreatingPartial(modelBuilder);
+        modelBuilder.Entity<Veiculo>()
+            .HasDiscriminator<string>("tipo_veiculo")
+            .HasValue<Carro>("Carro")
+            .HasValue<Moto>("Moto");
     }
 
     partial void OnModelCreatingPartial(ModelBuilder modelBuilder);

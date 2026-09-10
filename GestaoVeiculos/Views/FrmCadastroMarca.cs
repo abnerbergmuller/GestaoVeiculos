@@ -35,6 +35,12 @@ namespace GestaoVeiculos.Views
         public event EventHandler ClickBtnExcluir;
         public event EventHandler FormLoad;
 
+        public void LimparCampos()
+        {
+            txtId.Clear();
+            txtNome.Clear();
+        }
+
         public void ListarTabMarcas(IEnumerable<Marca> marcas)
         {
             tabMarcas.DataSource = marcas;

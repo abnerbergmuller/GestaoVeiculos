@@ -16,22 +16,6 @@ namespace GestaoVeiculos.Data.Repositories
             _contexto = contexto;
         }
 
-        public void Alterar(Marca marca)
-        {
-            try
-            {
-                var marcaExistente = _contexto.Marcas.Find(marca.Id);
-                if (marcaExistente != null)
-                {
-                    marcaExistente.Nome = marca.Nome;
-                    _contexto.SaveChanges();
-                }
-            }
-            finally
-            {
-                _contexto.ChangeTracker.Clear();
-            }
-        }
 
         public void Cadastrar(Marca marca)
         {
@@ -46,16 +30,27 @@ namespace GestaoVeiculos.Data.Repositories
             }
         }
 
+        public void Alterar(Marca marca)
+        {
+            try
+            {
+                var marcaEncontrada = _contexto.Marcas.Find(marca.Id);
+                marcaEncontrada.Nome = marca.Nome;
+                _contexto.SaveChanges();
+            }
+            finally
+            {
+                _contexto.ChangeTracker.Clear();
+            }
+        }
+
         public void Excluir(int marcaId)
         {
             try
             {
-                var marca = _contexto.Marcas.Find(marcaId);
-                if (marca != null)
-                {
-                    _contexto.Marcas.Remove(marca);
-                    _contexto.SaveChanges();
-                }
+                var marca = new Marca{Id = marcaId};
+                _contexto.Marcas.Remove(marca);
+                _contexto.SaveChanges();
             }
             finally
             {
@@ -66,11 +61,6 @@ namespace GestaoVeiculos.Data.Repositories
         public IEnumerable<Marca> ListarTodos()
         {
             return _contexto.Marcas.AsNoTracking().ToList();
-        }
-
-        public bool NomeIgualAtual(Marca marca)
-        {
-            return _contexto.Marcas.Any(n => n.Nome == marca.Nome && n.Id == marca.Id);
         }
     }
 }

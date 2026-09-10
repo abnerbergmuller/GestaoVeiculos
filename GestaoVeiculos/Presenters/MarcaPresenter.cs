@@ -48,6 +48,7 @@ namespace GestaoVeiculos.Presenters
                 _repository.Cadastrar(marca);
                 _view.ExibirMensagem("Marca cadastrada com sucesso!");
                 _view.ListarTabMarcas(_repository.ListarTodos());
+                _view.LimparCampos();
             }
             catch (DbUpdateException ex) when (ex.InnerException is PostgresException pgEx)
             {
@@ -78,6 +79,7 @@ namespace GestaoVeiculos.Presenters
                 _repository.Alterar(marca);
                 _view.ExibirMensagem("O nome da marca foi alterado com sucesso.");
                 _view.ListarTabMarcas(_repository.ListarTodos());
+                _view.LimparCampos();
             }
             catch (MarcaException ex)
             {
@@ -112,15 +114,11 @@ namespace GestaoVeiculos.Presenters
                 _repository.Excluir(marca.Id);
                 _view.ExibirMensagem("Marca excluída.");
                 _view.ListarTabMarcas(_repository.ListarTodos());
+                _view.LimparCampos();
             }
             catch (MarcaException ex)
             {
-                switch (ex.ErrorCode)
-                {
-                    case MarcaErrorCode.IdInvalido:
-                        _view.ExibirMensagem(ex.Message);
-                        break;
-                }
+                _view.ExibirMensagem(ex.Message);
             }
             catch (DbUpdateException ex) when (ex.InnerException is PostgresException pgEx)
             {

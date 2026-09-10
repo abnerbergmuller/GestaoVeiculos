@@ -16,5 +16,6 @@ namespace GestaoVeiculos.Views.Interfaces
         event EventHandler FormLoad;
         void ListarTabMarcas(IEnumerable<Marca> marca);
         void ExibirMensagem(string mensagem);
+        void LimparCampos();
     }
 }
