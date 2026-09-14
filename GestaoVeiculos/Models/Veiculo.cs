@@ -17,14 +17,15 @@ public abstract partial class Veiculo
 
     public virtual Marca Marca { get; set; } = null!;
 
-    protected Veiculo(int id, string placa, string modelo, int? ano, int marcaId, Marca marca)
+    public string TipoVeiculo => this.GetType().Name;
+
+    protected Veiculo(int id, string placa, string modelo, int? ano, int marcaId)
     {
         Id = id;
         Placa = placa;
         Modelo = modelo;
         Ano = ano;
         MarcaId = marcaId;
-        Marca = marca;
     }
 
     protected Veiculo(string placa, string modelo, int? ano, int marcaId)

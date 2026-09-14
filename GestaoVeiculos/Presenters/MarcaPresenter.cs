@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using GestaoVeiculos.Data.Interfaces;
 using GestaoVeiculos.Exceptions;
+using GestaoVeiculos.Exceptions.Enums;
 using GestaoVeiculos.Models;
 using GestaoVeiculos.Views.Interfaces;
 using Microsoft.EntityFrameworkCore;
@@ -37,7 +38,7 @@ namespace GestaoVeiculos.Presenters
 
         private void ListarMarcas(object sender, EventArgs e)
         {
-            _view.ListarTabMarcas(_repository.ListarTodos());
+            _view.ListarMarcas(_repository.ListarTodos());
         }
 
         private void CadastrarMarca(object sender, EventArgs e)
@@ -47,7 +48,7 @@ namespace GestaoVeiculos.Presenters
                 var marca = new Marca(_view.Nome);
                 _repository.Cadastrar(marca);
                 _view.ExibirMensagem("Marca cadastrada com sucesso!");
-                _view.ListarTabMarcas(_repository.ListarTodos());
+                _view.ListarMarcas(_repository.ListarTodos());
                 _view.LimparCampos();
             }
             catch (DbUpdateException ex) when (ex.InnerException is PostgresException pgEx)
@@ -78,7 +79,7 @@ namespace GestaoVeiculos.Presenters
                 var marca = new Marca(_view.Id, _view.Nome);
                 _repository.Alterar(marca);
                 _view.ExibirMensagem("O nome da marca foi alterado com sucesso.");
-                _view.ListarTabMarcas(_repository.ListarTodos());
+                _view.ListarMarcas(_repository.ListarTodos());
                 _view.LimparCampos();
             }
             catch (MarcaException ex)
@@ -113,7 +114,7 @@ namespace GestaoVeiculos.Presenters
                 var marca = new Marca(_view.Id, _view.Nome);
                 _repository.Excluir(marca.Id);
                 _view.ExibirMensagem("Marca excluída.");
-                _view.ListarTabMarcas(_repository.ListarTodos());
+                _view.ListarMarcas(_repository.ListarTodos());
                 _view.LimparCampos();
             }
             catch (MarcaException ex)
@@ -126,6 +127,9 @@ namespace GestaoVeiculos.Presenters
                 {
                     case PostgresErrorCodes.NotNullViolation:
                         _view.ExibirMensagem($"O campo '{pgEx.ColumnName}' não pode ser nulo.");
+                        break;
+                    case PostgresErrorCodes.ForeignKeyViolation:
+                        _view.ExibirMensagem($"Não é possível excluir marcas com veículos cadastrados, faça a exclusão na tela de Veículos primeiro.");
                         break;
                 }
             }

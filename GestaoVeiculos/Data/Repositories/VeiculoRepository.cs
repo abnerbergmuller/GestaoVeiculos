@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Text;
 using GestaoVeiculos.Data.Interfaces;
+using GestaoVeiculos.DTOs;
 using GestaoVeiculos.Models;
 using Microsoft.EntityFrameworkCore;
 
@@ -39,6 +40,7 @@ namespace GestaoVeiculos.Data.Repositories
                 veiculoEncontrado.Modelo = veiculo.Modelo;
                 veiculoEncontrado.Ano = veiculo.Ano;
                 veiculoEncontrado.MarcaId = veiculo.MarcaId;
+                
                 _contexto.SaveChanges();
             }
             finally
@@ -61,9 +63,21 @@ namespace GestaoVeiculos.Data.Repositories
             }
         }
 
-        public IEnumerable<Veiculo> ListarTodos()
+        public IEnumerable<VeiculoDTO> ListarTodos()
         {
-            return _contexto.Veiculos.AsNoTracking().ToList();
+            return _contexto.Veiculos
+                .Include(v => v.Marca)
+                .Select(v => new VeiculoDTO
+                {
+                    Id = v.Id,
+                    Placa = v.Placa,
+                    Modelo = v.Modelo,
+                    Ano = v.Ano,
+                    MarcaNome = v.Marca.Nome,
+                    TipoVeiculo = v.TipoVeiculo
+                })
+                .AsNoTracking()
+                .ToList();
         }
     }
 }
