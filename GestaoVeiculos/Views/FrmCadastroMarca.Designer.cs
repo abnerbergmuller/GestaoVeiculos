@@ -33,7 +33,7 @@
             label1 = new Label();
             btnExcluir = new Button();
             btnAdicionar = new Button();
-            tabMarcas = new DataGridView();
+            dgvMarcas = new DataGridView();
             groupBox1 = new GroupBox();
             button1 = new Button();
             txtNome = new TextBox();
@@ -44,7 +44,7 @@
             btnVoltar = new Button();
             label3 = new Label();
             panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)tabMarcas).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)dgvMarcas).BeginInit();
             groupBox1.SuspendLayout();
             SuspendLayout();
             // 
@@ -101,13 +101,13 @@
             btnAdicionar.UseVisualStyleBackColor = false;
             btnAdicionar.Click += btnAdicionar_Click_1;
             // 
-            // tabMarcas
+            // dgvMarcas
             // 
-            tabMarcas.AllowUserToResizeColumns = false;
-            tabMarcas.AllowUserToResizeRows = false;
-            tabMarcas.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-            tabMarcas.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
-            tabMarcas.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgvMarcas.AllowUserToResizeColumns = false;
+            dgvMarcas.AllowUserToResizeRows = false;
+            dgvMarcas.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dgvMarcas.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
+            dgvMarcas.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle1.BackColor = SystemColors.Window;
             dataGridViewCellStyle1.Font = new Font("Microsoft Sans Serif", 8F, FontStyle.Regular, GraphicsUnit.Point, 254);
@@ -115,19 +115,19 @@
             dataGridViewCellStyle1.SelectionBackColor = SystemColors.ButtonFace;
             dataGridViewCellStyle1.SelectionForeColor = SystemColors.ControlText;
             dataGridViewCellStyle1.WrapMode = DataGridViewTriState.False;
-            tabMarcas.DefaultCellStyle = dataGridViewCellStyle1;
-            tabMarcas.EditMode = DataGridViewEditMode.EditProgrammatically;
-            tabMarcas.Location = new Point(668, 144);
-            tabMarcas.Margin = new Padding(3, 4, 3, 4);
-            tabMarcas.Name = "tabMarcas";
-            tabMarcas.ReadOnly = true;
-            tabMarcas.RowHeadersVisible = false;
-            tabMarcas.RowHeadersWidth = 62;
-            tabMarcas.RowTemplate.Height = 28;
-            tabMarcas.Size = new Size(658, 443);
-            tabMarcas.TabIndex = 45;
-            tabMarcas.CellContentClick += tabMarcas_CellContentClick;
-            tabMarcas.CellContentDoubleClick += tabMarcas_CellContentDoubleClick;
+            dgvMarcas.DefaultCellStyle = dataGridViewCellStyle1;
+            dgvMarcas.EditMode = DataGridViewEditMode.EditProgrammatically;
+            dgvMarcas.Location = new Point(668, 144);
+            dgvMarcas.Margin = new Padding(3, 4, 3, 4);
+            dgvMarcas.Name = "dgvMarcas";
+            dgvMarcas.ReadOnly = true;
+            dgvMarcas.RowHeadersVisible = false;
+            dgvMarcas.RowHeadersWidth = 62;
+            dgvMarcas.RowTemplate.Height = 28;
+            dgvMarcas.Size = new Size(658, 443);
+            dgvMarcas.TabIndex = 45;
+            dgvMarcas.CellContentClick += dgvMarcas_CellContentClick;
+            dgvMarcas.CellContentDoubleClick += dgvMarcas_CellContentDoubleClick;
             // 
             // groupBox1
             // 
@@ -227,6 +227,7 @@
             btnVoltar.TabIndex = 50;
             btnVoltar.Text = "Voltar ao menu ↩️";
             btnVoltar.UseVisualStyleBackColor = false;
+            btnVoltar.Click += btnVoltar_Click;
             // 
             // label3
             // 
@@ -235,9 +236,9 @@
             label3.ForeColor = Color.FromArgb(64, 64, 65);
             label3.Location = new Point(668, 594);
             label3.Name = "label3";
-            label3.Size = new Size(338, 21);
+            label3.Size = new Size(326, 21);
             label3.TabIndex = 51;
-            label3.Text = "*Clique duas vezes na coluna que deseja alterar";
+            label3.Text = "*Clique duas vezes na linha que deseja alterar";
             // 
             // FrmCadastroMarca
             // 
@@ -248,7 +249,7 @@
             Controls.Add(btnVoltar);
             Controls.Add(btnEditar);
             Controls.Add(btnExcluir);
-            Controls.Add(tabMarcas);
+            Controls.Add(dgvMarcas);
             Controls.Add(groupBox1);
             Controls.Add(btnAdicionar);
             Controls.Add(panel1);
@@ -258,7 +259,7 @@
             Load += FrmCadastroMarca_Load;
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)tabMarcas).EndInit();
+            ((System.ComponentModel.ISupportInitialize)dgvMarcas).EndInit();
             groupBox1.ResumeLayout(false);
             groupBox1.PerformLayout();
             ResumeLayout(false);
@@ -271,7 +272,7 @@
         private Label label1;
         private Button btnExcluir;
         private Button btnAdicionar;
-        private DataGridView tabMarcas;
+        private DataGridView dgvMarcas;
         private GroupBox groupBox1;
         private TextBox txtNome;
         private Label label4;

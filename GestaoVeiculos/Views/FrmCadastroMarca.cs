@@ -16,7 +16,7 @@ namespace GestaoVeiculos.Views
     public partial class FrmCadastroMarca : Form, IMarcaView
     {
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-        public int Id 
+        public int Id
         {
             get
             {
@@ -41,9 +41,9 @@ namespace GestaoVeiculos.Views
             txtNome.Clear();
         }
 
-        public void ListarTabMarcas(IEnumerable<Marca> marcas)
+        public void ListarMarcas(IEnumerable<Marca> marcas)
         {
-            tabMarcas.DataSource = marcas;
+            dgvMarcas.DataSource = marcas;
         }
 
         public void ExibirMensagem(string mensagem)
@@ -151,15 +151,20 @@ namespace GestaoVeiculos.Views
             txtId.Clear();
         }
 
-        private void tabMarcas_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        private void dgvMarcas_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
 
         }
 
-        private void tabMarcas_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
+        private void dgvMarcas_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
-            txtId.Text = tabMarcas.CurrentRow.Cells[0].Value.ToString();
-            txtNome.Text = tabMarcas.CurrentRow.Cells[1].Value.ToString();
+            txtId.Text = dgvMarcas.CurrentRow.Cells[0].Value.ToString();
+            txtNome.Text = dgvMarcas.CurrentRow.Cells[1].Value.ToString();
+        }
+
+        private void btnVoltar_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }

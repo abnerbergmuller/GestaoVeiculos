@@ -13,13 +13,10 @@ namespace GestaoVeiculos
             ApplicationConfiguration.Initialize();
             var contexto = new AppDbContext();
 
-            var viewMarca = new FrmCadastroMarca();
-            var repositoryMarca = new MarcaRepository(contexto); 
-            var presenterMarca = new MarcaPresenter(viewMarca, repositoryMarca);
+            var viewMenuPrincipal = new FrmMenuPrincipal();
+            var presenterMenuPrincipal = new MenuPrincipalPresenter(viewMenuPrincipal);
 
-
-            //Lembrar: instanciar só o menu principal, o restante das telas "por demanda"!!!
-            Application.Run(viewMarca);
+            Application.Run(viewMenuPrincipal);
         }
     }
 }
