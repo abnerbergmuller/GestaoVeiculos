@@ -2,7 +2,7 @@
 
 public class VeiculoFactory
 {
-    public static Veiculo CriarVeiculo(string tipoSelecionado, string placa, string modelo, int? ano, int marcaId)
+    public static Veiculo MontarVeiculo(string tipoSelecionado, string placa, string modelo, int? ano, int marcaId)
     {
         return tipoSelecionado switch
         {

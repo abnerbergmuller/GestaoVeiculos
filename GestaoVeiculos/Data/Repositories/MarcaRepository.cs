@@ -1,9 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using GestaoVeiculos.Data.Interfaces;
+﻿using GestaoVeiculos.Data.Interfaces;
+using GestaoVeiculos.Exceptions;
 using GestaoVeiculos.Models;
 using Microsoft.EntityFrameworkCore;
+using Npgsql;
+using System;
+using System.Collections.Generic;
+using System.Text;
 
 namespace GestaoVeiculos.Data.Repositories
 {
@@ -24,6 +26,10 @@ namespace GestaoVeiculos.Data.Repositories
                 _contexto.Marcas.Add(marca);
                 _contexto.SaveChanges();
             }
+            catch (DbUpdateException ex) when (ex.InnerException is PostgresException pgEx)
+            {
+                throw BancoException.Validar(pgEx);
+            }
             finally
             {
                 _contexto.ChangeTracker.Clear();
@@ -38,6 +44,10 @@ namespace GestaoVeiculos.Data.Repositories
                 marcaEncontrada.Nome = marca.Nome;
                 _contexto.SaveChanges();
             }
+            catch (DbUpdateException ex) when (ex.InnerException is PostgresException pgEx)
+            {
+                throw BancoException.Validar(pgEx);
+            }
             finally
             {
                 _contexto.ChangeTracker.Clear();
@@ -51,6 +61,10 @@ namespace GestaoVeiculos.Data.Repositories
                 var marca = new Marca{Id = marcaId};
                 _contexto.Marcas.Remove(marca);
                 _contexto.SaveChanges();
+            }
+            catch (DbUpdateException ex) when (ex.InnerException is PostgresException pgEx)
+            {
+                throw BancoException.Validar(pgEx);
             }
             finally
             {

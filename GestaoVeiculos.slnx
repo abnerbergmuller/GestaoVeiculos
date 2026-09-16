@@ -1,3 +1,4 @@
 <Solution>
+  <Project Path="GestaoVeiculos.Tests/GestaoVeiculos.Tests.csproj" Id="7bdf5fd8-51a6-4b9d-bbdd-7b6e6452d518" />
   <Project Path="GestaoVeiculos/GestaoVeiculos.csproj" />
 </Solution>

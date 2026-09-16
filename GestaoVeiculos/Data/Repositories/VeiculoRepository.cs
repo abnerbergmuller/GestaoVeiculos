@@ -1,11 +1,13 @@
-﻿using System;
+﻿using GestaoVeiculos.Data.Interfaces;
+using GestaoVeiculos.DTOs;
+using GestaoVeiculos.Exceptions;
+using GestaoVeiculos.Models;
+using Microsoft.EntityFrameworkCore;
+using Npgsql;
+using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Text;
-using GestaoVeiculos.Data.Interfaces;
-using GestaoVeiculos.DTOs;
-using GestaoVeiculos.Models;
-using Microsoft.EntityFrameworkCore;
 
 namespace GestaoVeiculos.Data.Repositories
 {
@@ -25,6 +27,10 @@ namespace GestaoVeiculos.Data.Repositories
                 _contexto.Veiculos.Add(veiculo);
                 _contexto.SaveChanges();
             }
+            catch (DbUpdateException ex) when (ex.InnerException is PostgresException pgEx)
+            {
+                throw BancoException.Validar(pgEx);
+            }
             finally
             {
                 _contexto.ChangeTracker.Clear();
@@ -43,6 +49,10 @@ namespace GestaoVeiculos.Data.Repositories
                 
                 _contexto.SaveChanges();
             }
+            catch (DbUpdateException ex) when (ex.InnerException is PostgresException pgEx)
+            {
+                throw BancoException.Validar(pgEx);
+            }
             finally
             {
                 _contexto.ChangeTracker.Clear();
@@ -56,6 +66,10 @@ namespace GestaoVeiculos.Data.Repositories
                 var veiculo = _contexto.Veiculos.Find(veiculoId);
                 _contexto.Veiculos.Remove(veiculo);
                 _contexto.SaveChanges();
+            }
+            catch (DbUpdateException ex) when (ex.InnerException is PostgresException pgEx)
+            {
+                throw BancoException.Validar(pgEx);
             }
             finally
             {

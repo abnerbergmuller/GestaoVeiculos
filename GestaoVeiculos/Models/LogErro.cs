@@ -16,4 +16,17 @@ public partial class LogErro
     public string? CodigoErro { get; set; }
 
     public string? RastroCodigo { get; set; }
+
+    public LogErro(DateTime dataHora, string mensagem, string localErro, string? codigoErro, string? rastroCodigo)
+    {
+        DataHora = dataHora;
+        Mensagem = mensagem;
+        LocalErro = localErro;
+        CodigoErro = codigoErro;
+        RastroCodigo = rastroCodigo;
+    }
+
+    public LogErro()
+    {
+    }
 }

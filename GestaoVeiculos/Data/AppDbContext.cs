@@ -85,6 +85,25 @@ public partial class AppDbContext : DbContext
                 .HasConstraintName("fk_veiculo_marca");
         });
 
+        modelBuilder.Entity<LogErro>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("log_erro_pkey");
+
+            entity.ToTable("log_erro");
+
+            entity.Property(e => e.Id).HasColumnName("id");
+            entity.Property(e => e.DataHora)
+                .HasColumnType("timestamp without time zone")
+                .HasColumnName("data_hora");
+            entity.Property(e => e.Mensagem)
+                .HasColumnName("mensagem");
+            entity.Property(e => e.LocalErro)
+                .HasColumnName("local_erro");
+            entity.Property(e => e.CodigoErro)
+                .HasColumnName("codigo_erro");
+            entity.Property(e => e.RastroCodigo)
+                .HasColumnName("rastro_codigo");
+        });
 
         OnModelCreatingPartial(modelBuilder);
         modelBuilder.Entity<Veiculo>()

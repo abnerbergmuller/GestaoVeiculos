@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
+using System.Reflection;
 using System.Text;
 using GestaoVeiculos.Data.Interfaces;
 using GestaoVeiculos.Exceptions;
-using GestaoVeiculos.Exceptions.Enums;
 using GestaoVeiculos.Models;
 using GestaoVeiculos.Views.Interfaces;
 using Microsoft.EntityFrameworkCore;
@@ -11,28 +12,21 @@ using Npgsql;
 
 namespace GestaoVeiculos.Presenters
 {
-    //SÓ FALTA ADICIONAR ERRO DE VINCULO À VEICULOS E DIRECIONAMENTO DE ERROS EM GERAL PARA LOG ERROS
     public class MarcaPresenter
     {
         private readonly IMarcaView _view;
         private readonly IMarcaRepository _repository;
+        private readonly ILogRepository _logRepository;
 
-        public MarcaPresenter(IMarcaView view, IMarcaRepository repository)
+        public MarcaPresenter(IMarcaView view, IMarcaRepository repository, ILogRepository logRepository)
         {
             _view = view;
             _repository = repository;
+            _logRepository = logRepository;
             _view.ClickBtnCadastrar += CadastrarMarca;
             _view.ClickBtnEditar += EditarMarca;
             _view.ClickBtnExcluir += ExcluirMarca;
             _view.FormLoad += ListarMarcas;
-        }
-
-        private void ValidarIdInvalido(int id)
-        {
-            if (id == 0)
-            {
-                throw new MarcaException("O campo 'código' não pode ficar em branco.", MarcaErrorCode.IdInvalido);
-            }
         }
 
 
@@ -51,23 +45,11 @@ namespace GestaoVeiculos.Presenters
                 _view.ListarMarcas(_repository.ListarTodos());
                 _view.LimparCampos();
             }
-            catch (DbUpdateException ex) when (ex.InnerException is PostgresException pgEx)
+            catch (BancoException bdEx)
             {
-                switch (pgEx.SqlState)
-                {
-                    case PostgresErrorCodes.NotNullViolation:
-                        _view.ExibirMensagem($"O campo '{pgEx.ColumnName}' não pode ser nulo.");
-                        break;
-                    case PostgresErrorCodes.CheckViolation:
-                        _view.ExibirMensagem($"O campo '{pgEx.ConstraintName.Replace("ck_marca_", "")}' é obrigatório.");
-                        break;
-                    case PostgresErrorCodes.UniqueViolation:
-                        _view.ExibirMensagem($"Já existe uma marca com este {pgEx.ConstraintName.Replace("uq_marca_", "")}.");
-                        break;
-                    case PostgresErrorCodes.StringDataRightTruncation:
-                        _view.ExibirMensagem($"Um dos campos ultrapassou o limite de caracteres permitido.");
-                        break;
-                }
+                _view.ExibirMensagem(bdEx.Message);
+                _logRepository.RegistrarErro(new LogErro(bdEx.DataHora, bdEx.Mensagem,
+                    MethodBase.GetCurrentMethod().Name, bdEx.CodigoErro, bdEx.RastroCodigo));
             }
         }
 
@@ -75,34 +57,17 @@ namespace GestaoVeiculos.Presenters
         {
             try
             {
-                ValidarIdInvalido(_view.Id);
                 var marca = new Marca(_view.Id, _view.Nome);
                 _repository.Alterar(marca);
                 _view.ExibirMensagem("O nome da marca foi alterado com sucesso.");
                 _view.ListarMarcas(_repository.ListarTodos());
                 _view.LimparCampos();
             }
-            catch (MarcaException ex)
+            catch (BancoException bdEx)
             {
-                _view.ExibirMensagem(ex.Message);
-            }
-            catch (DbUpdateException ex) when (ex.InnerException is PostgresException pgEx)
-            {
-                switch (pgEx.SqlState)
-                {
-                    case PostgresErrorCodes.NotNullViolation:
-                        _view.ExibirMensagem($"O campo '{pgEx.ColumnName}' não pode ser nulo.");
-                        break;
-                    case PostgresErrorCodes.CheckViolation:
-                        _view.ExibirMensagem($"O campo '{pgEx.ConstraintName.Replace("ck_marca_", "")}' é obrigatório.");
-                        break;
-                    case PostgresErrorCodes.UniqueViolation:
-                        _view.ExibirMensagem($"Já existe uma marca com este {pgEx.ConstraintName.Replace("uq_marca_", "")}.");
-                        break;
-                    case PostgresErrorCodes.StringDataRightTruncation:
-                        _view.ExibirMensagem($"Um dos campos ultrapassou o limite de caracteres permitido.");
-                        break;
-                }
+                _view.ExibirMensagem(bdEx.Message);
+                _logRepository.RegistrarErro(new LogErro(bdEx.DataHora, bdEx.Mensagem,
+                    MethodBase.GetCurrentMethod().Name, bdEx.CodigoErro, bdEx.RastroCodigo));
             }
         }
 
@@ -110,28 +75,17 @@ namespace GestaoVeiculos.Presenters
         {
             try
             {
-                ValidarIdInvalido(_view.Id);
                 var marca = new Marca(_view.Id, _view.Nome);
                 _repository.Excluir(marca.Id);
                 _view.ExibirMensagem("Marca excluída.");
                 _view.ListarMarcas(_repository.ListarTodos());
                 _view.LimparCampos();
             }
-            catch (MarcaException ex)
+            catch (BancoException bdEx)
             {
-                _view.ExibirMensagem(ex.Message);
-            }
-            catch (DbUpdateException ex) when (ex.InnerException is PostgresException pgEx)
-            {
-                switch (pgEx.SqlState)
-                {
-                    case PostgresErrorCodes.NotNullViolation:
-                        _view.ExibirMensagem($"O campo '{pgEx.ColumnName}' não pode ser nulo.");
-                        break;
-                    case PostgresErrorCodes.ForeignKeyViolation:
-                        _view.ExibirMensagem($"Não é possível excluir marcas com veículos cadastrados, faça a exclusão na tela de Veículos primeiro.");
-                        break;
-                }
+                _view.ExibirMensagem(bdEx.Message);
+                _logRepository.RegistrarErro(new LogErro(bdEx.DataHora, bdEx.Mensagem,
+                    MethodBase.GetCurrentMethod().Name, bdEx.CodigoErro, bdEx.RastroCodigo));
             }
         }
     }

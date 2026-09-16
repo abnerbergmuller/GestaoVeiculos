@@ -22,7 +22,8 @@ public class MenuPrincipalPresenter
     {
         var viewMarca = new FrmCadastroMarca();
         var repositoryMarca = new MarcaRepository(new AppDbContext());
-        var presenterMarca = new MarcaPresenter(viewMarca, repositoryMarca);
+        var repositoryLog = new LogRepository(new AppDbContext());
+        var presenterMarca = new MarcaPresenter(viewMarca, repositoryMarca, repositoryLog);
 
         viewMarca.ShowDialog();
     }
@@ -32,13 +33,18 @@ public class MenuPrincipalPresenter
         var viewVeiculo = new FrmCadastroVeiculo();
         var repositoryVeiculo = new VeiculoRepository(new AppDbContext());
         var repositoryMarca = new MarcaRepository(new AppDbContext());
-        var presenterVeiculo = new VeiculoPresenter(viewVeiculo, repositoryVeiculo, repositoryMarca);
+        var repositoryLog = new LogRepository(new AppDbContext());
+        var presenterVeiculo = new VeiculoPresenter(viewVeiculo, repositoryVeiculo, repositoryMarca, repositoryLog);
 
         viewVeiculo.ShowDialog();
     }
 
     public void AbrirTelaLogs(object sender, EventArgs e)
     {
-        //----
+        var viewLog = new FrmLog();
+        var repositoryLog = new LogRepository(new AppDbContext());
+        var presenterLog = new LogPresenter(viewLog, repositoryLog);
+
+        viewLog.ShowDialog();
     }
 }
