@@ -362,6 +362,31 @@ MigrationBackup/
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
 
-# IDE - JetBrains Rider
+# JetBrains Rider & Fleet
 .idea/
-*.xml
+.fleet/
+.junie/
+*.sln.iml
+*.csproj.iml
+
+# Visual Studio Code
+.vscode/
+
+# macOS
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+
+# Windows
+Thumbs.db
+Thumbs.db:encryptable
+ehthumbs.db
+ehthumbs_vista.db
+[Dd]esktop.ini
+
+.env
+.env.*
+*.local.json
+appsettings.*.local.json
