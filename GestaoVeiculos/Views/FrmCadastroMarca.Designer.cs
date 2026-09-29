@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle5 = new DataGridViewCellStyle();
             panel1 = new Panel();
             label1 = new Label();
             btnExcluir = new Button();
@@ -54,10 +54,10 @@
             panel1.AutoSize = true;
             panel1.BackColor = Color.FromArgb(217, 71, 31);
             panel1.Controls.Add(label1);
-            panel1.Location = new Point(-4, 0);
+            panel1.Location = new Point(-1, 0);
             panel1.Margin = new Padding(3, 4, 3, 4);
             panel1.Name = "panel1";
-            panel1.Size = new Size(1349, 115);
+            panel1.Size = new Size(1340, 115);
             panel1.TabIndex = 18;
             panel1.Paint += panel1_Paint;
             // 
@@ -108,14 +108,14 @@
             dgvMarcas.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dgvMarcas.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
             dgvMarcas.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = SystemColors.Window;
-            dataGridViewCellStyle1.Font = new Font("Microsoft Sans Serif", 8F, FontStyle.Regular, GraphicsUnit.Point, 254);
-            dataGridViewCellStyle1.ForeColor = SystemColors.ControlText;
-            dataGridViewCellStyle1.SelectionBackColor = SystemColors.ButtonFace;
-            dataGridViewCellStyle1.SelectionForeColor = SystemColors.ControlText;
-            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.False;
-            dgvMarcas.DefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle5.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle5.BackColor = SystemColors.Window;
+            dataGridViewCellStyle5.Font = new Font("Microsoft Sans Serif", 8F, FontStyle.Regular, GraphicsUnit.Point, 254);
+            dataGridViewCellStyle5.ForeColor = SystemColors.ControlText;
+            dataGridViewCellStyle5.SelectionBackColor = SystemColors.ButtonFace;
+            dataGridViewCellStyle5.SelectionForeColor = SystemColors.ControlText;
+            dataGridViewCellStyle5.WrapMode = DataGridViewTriState.False;
+            dgvMarcas.DefaultCellStyle = dataGridViewCellStyle5;
             dgvMarcas.EditMode = DataGridViewEditMode.EditProgrammatically;
             dgvMarcas.Location = new Point(668, 144);
             dgvMarcas.Margin = new Padding(3, 4, 3, 4);
@@ -144,7 +144,7 @@
             groupBox1.Size = new Size(618, 191);
             groupBox1.TabIndex = 44;
             groupBox1.TabStop = false;
-            groupBox1.Text = "*Digite o código da marca para editar e excluir.";
+            groupBox1.Text = "*Selecione a marca na tabela para editar e excluir.";
             groupBox1.Enter += groupBox1_Enter;
             // 
             // button1
@@ -234,11 +234,11 @@
             label3.AutoSize = true;
             label3.Font = new Font("Segoe UI", 8F, FontStyle.Regular, GraphicsUnit.Point, 0);
             label3.ForeColor = Color.FromArgb(64, 64, 65);
-            label3.Location = new Point(668, 594);
+            label3.Location = new Point(668, 592);
             label3.Name = "label3";
-            label3.Size = new Size(326, 21);
+            label3.Size = new Size(308, 21);
             label3.TabIndex = 51;
-            label3.Text = "*Clique duas vezes na linha que deseja alterar";
+            label3.Text = "*Clique duas vezes na linha para selecionar";
             // 
             // FrmCadastroMarca
             // 
@@ -273,7 +273,7 @@
         private Button btnExcluir;
         private Button btnAdicionar;
         private DataGridView dgvMarcas;
-        private GroupBox groupBox1;
+        private System.Windows.Forms.GroupBox groupBox1;
         private TextBox txtNome;
         private Label label4;
         private Label label2;

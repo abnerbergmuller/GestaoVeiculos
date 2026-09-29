@@ -41,6 +41,11 @@ public class VeiculoPresenter
 
     private void CadastrarVeiculo(object sender, EventArgs e)
     {
+        if (string.IsNullOrWhiteSpace(_view.TipoVeiculo))
+        {
+            _view.ExibirMensagem("Por favor, selecione o tipo de veículo antes de cadastrar.");
+            return;
+        }
         try
         {
             Veiculo veiculo = VeiculoFactory.MontarVeiculo(_view.TipoVeiculo, 
@@ -62,6 +67,11 @@ public class VeiculoPresenter
 
     private void EditarVeiculo(object sender, EventArgs e)
     {
+        if (_view.Id <= 0)
+        {
+            _view.ExibirMensagem("Selecione um veículo para editar.");
+            return;
+        }
         try
         {
             Veiculo veiculo = VeiculoFactory.MontarVeiculo(_view.TipoVeiculo,
@@ -85,6 +95,11 @@ public class VeiculoPresenter
 
     private void ExcluirVeiculo(object sender, EventArgs e)
     {
+        if (_view.Id <= 0)
+        {
+            _view.ExibirMensagem("Selecione um veículo para excluir.");
+            return;
+        }
         try
         {
             _repository.Excluir(_view.Id);

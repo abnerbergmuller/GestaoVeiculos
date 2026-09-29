@@ -63,9 +63,9 @@
             label3.ForeColor = Color.FromArgb(64, 64, 65);
             label3.Location = new Point(669, 659);
             label3.Name = "label3";
-            label3.Size = new Size(326, 21);
+            label3.Size = new Size(308, 21);
             label3.TabIndex = 59;
-            label3.Text = "*Clique duas vezes na linha que deseja alterar";
+            label3.Text = "*Clique duas vezes na linha para selecionar";
             // 
             // btnVoltar
             // 
@@ -161,7 +161,7 @@
             groupBox1.Size = new Size(618, 283);
             groupBox1.TabIndex = 55;
             groupBox1.TabStop = false;
-            groupBox1.Text = "*Digite o código do veículo para editar e excluir.";
+            groupBox1.Text = "*Selecione o veículo na tabela para editar e excluir.";
             // 
             // cbTipoVeiculo
             // 
@@ -384,7 +384,7 @@
         private Button btnEditar;
         private Button btnExcluir;
         private DataGridView dgvVeiculos;
-        private GroupBox groupBox1;
+        private System.Windows.Forms.GroupBox groupBox1;
         private Button btnLimparTudo;
         private Label label4;
         private Label label2;

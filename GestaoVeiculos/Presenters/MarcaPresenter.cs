@@ -55,6 +55,11 @@ namespace GestaoVeiculos.Presenters
 
         private void EditarMarca(object sender, EventArgs e)
         {
+            if (_view.Id <= 0)
+            {
+                _view.ExibirMensagem("Selecione uma marca para editar.");
+                return;
+            }
             try
             {
                 var marca = new Marca(_view.Id, _view.Nome);
@@ -73,10 +78,14 @@ namespace GestaoVeiculos.Presenters
 
         private void ExcluirMarca(object sender, EventArgs e)
         {
+            if (_view.Id <= 0)
+            {
+                _view.ExibirMensagem("Selecione uma marca para excluir.");
+                return;
+            }
             try
             {
-                var marca = new Marca(_view.Id, _view.Nome);
-                _repository.Excluir(marca.Id);
+                _repository.Excluir(_view.Id);
                 _view.ExibirMensagem("Marca excluída.");
                 _view.ListarMarcas(_repository.ListarTodos());
                 _view.LimparCampos();
