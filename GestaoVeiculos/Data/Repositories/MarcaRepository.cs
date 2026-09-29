@@ -40,8 +40,7 @@ namespace GestaoVeiculos.Data.Repositories
         {
             try
             {
-                var marcaEncontrada = _contexto.Marcas.Find(marca.Id);
-                marcaEncontrada.Nome = marca.Nome;
+                _contexto.Marcas.Update(marca);
                 _contexto.SaveChanges();
             }
             catch (DbUpdateException ex) when (ex.InnerException is PostgresException pgEx)
@@ -58,17 +57,11 @@ namespace GestaoVeiculos.Data.Repositories
         {
             try
             {
-                var marca = new Marca{Id = marcaId};
-                _contexto.Marcas.Remove(marca);
-                _contexto.SaveChanges();
+                _contexto.Marcas.Where(m => m.Id == marcaId).ExecuteDelete();
             }
-            catch (DbUpdateException ex) when (ex.InnerException is PostgresException pgEx)
+            catch (PostgresException pgEx)
             {
                 throw BancoException.Validar(pgEx);
-            }
-            finally
-            {
-                _contexto.ChangeTracker.Clear();
             }
         }
 

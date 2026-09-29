@@ -41,12 +41,7 @@ namespace GestaoVeiculos.Data.Repositories
         {
             try
             {
-                var veiculoEncontrado = _contexto.Veiculos.Find(veiculo.Id);
-                veiculoEncontrado.Placa = veiculo.Placa;
-                veiculoEncontrado.Modelo = veiculo.Modelo;
-                veiculoEncontrado.Ano = veiculo.Ano;
-                veiculoEncontrado.MarcaId = veiculo.MarcaId;
-                
+                _contexto.Veiculos.Update(veiculo);
                 _contexto.SaveChanges();
             }
             catch (DbUpdateException ex) when (ex.InnerException is PostgresException pgEx)
@@ -63,17 +58,11 @@ namespace GestaoVeiculos.Data.Repositories
         {
             try
             {
-                var veiculo = _contexto.Veiculos.Find(veiculoId);
-                _contexto.Veiculos.Remove(veiculo);
-                _contexto.SaveChanges();
+                _contexto.Veiculos.Where(v => v.Id == veiculoId).ExecuteDelete();
             }
-            catch (DbUpdateException ex) when (ex.InnerException is PostgresException pgEx)
+            catch (PostgresException pgEx)
             {
                 throw BancoException.Validar(pgEx);
-            }
-            finally
-            {
-                _contexto.ChangeTracker.Clear();
             }
         }
 

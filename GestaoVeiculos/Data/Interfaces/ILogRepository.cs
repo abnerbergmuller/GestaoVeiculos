@@ -8,5 +8,4 @@ public interface ILogRepository
     IEnumerable<LogTransacao> ListarTransacoes();
     IEnumerable<LogErro> ListarErros();
     void RegistrarErro(LogErro logErro);
-
 }

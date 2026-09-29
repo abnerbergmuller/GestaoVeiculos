@@ -73,6 +73,8 @@ public class BancoException : Exception
                 return MontarBancoException($"Já existe um registro com este(a) {RetornaNomeConstraint(pgEx.ConstraintName)}.", pgEx);
             case PostgresErrorCodes.StringDataRightTruncation:
                 return MontarBancoException($"Um dos campos ultrapassou o limite de caracteres permitido.", pgEx);
+            case PostgresErrorCodes.ForeignKeyViolation:
+                return MontarBancoException($"Não é possível excluir marcas com veículos cadastrados, faça a exclusão na tela de Veículos primeiro.", pgEx);
             default:
                 return null;
         }
